@@ -8,6 +8,28 @@
       <a mat-list-item href="#">Link 1</a>
       <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
+      <div class="tekst">
+        <a
+          mat-list-item
+          routerLink="/"
+          routerLinkActive="active"
+          *ngIf="(accountService.currentUser$ | async) === null"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <mat-icon>exit_to_app</mat-icon> Login
+        </a>
+      </div>
+      <div class="tekst">
+        <a
+          mat-list-item
+          routerLink="/register"
+          routerLinkActive="active"
+          *ngIf="(accountService.currentUser$ | async) === null"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <mat-icon>perm_identity</mat-icon> Registracija
+        </a>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -22,6 +44,8 @@
       </button>
      
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <div class="router">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
