@@ -2,22 +2,15 @@ import { SearchFilter1 } from './products/create-product/search-filter.component
 import { LoginComponent } from './login/login/login.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material/input';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './_modules/shared.module';
+
 import { CreateKupacComponent } from './products/create-product/create-kupac.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,11 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

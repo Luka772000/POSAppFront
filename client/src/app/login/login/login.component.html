@@ -1,28 +1,27 @@
-<div class="main-content" style="margin-top: 100px;">
-    <div class="container-fluid">
-      <div class="card">
-          <div class="card-header card-header-danger">
-              <h4 class="card-title">Prijava na stranicu</h4>
-          </div>
-          <div class="card-body">
-                  <div class="row">
-                          <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()" class="container" novalidate autocomplete="off" #form="ngForm">
-                              
-                              <app-text-input [formControl]="loginForm.controls['username']" 
-                                    [label]='"Korisnicko ime"'></app-text-input>
-                                
-                              <app-text-input [formControl]="loginForm.controls['password']"
-                                    [label]='"Lozinka"' [type]='"password"'></app-text-input>
-                              <br>
-                              <div class="form-group text-center">
-                                  <button class="btn btn-dark btn-lg btn-block" type="submit" [disabled]="form.invalid">Prijavi se</button>
-                                  <button class="btn btn-danger btn-lg btn-block" (click)="cancel()">Odustani</button>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-  
+<div class="rowic">
+    <div class="card">
+        <div class="card-body">
+            <div class="row3 text-center">
+                <h3 class="row3">LOGIN</h3>
+            </div>
+            <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+                <div class="col-md-12 form-group">
+                    <mat-form-field class="forma">
+                        <input matInput placeholder="Korisničko ime" name="username" [(ngModel)]="model.username"
+                            required>
+                        <mat-icon matPrefix>mode_edit</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12 form-group">
+                    <mat-form-field class="forma">
+                        <input matInput placeholder="Lozinka" name="password" [(ngModel)]="model.password"
+                            type="password" required>
+                        <mat-icon matPrefix>lock</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12 form-group gumb">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Ulogiraj se</button>
+                </div>
+            </form>
+        </div>
+    </div>
