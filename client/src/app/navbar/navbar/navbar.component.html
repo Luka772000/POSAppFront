@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     
-    <mat-nav-list>
+    <mat-nav-list >
       <div class="tekst">
         <a
           mat-list-item
@@ -49,8 +49,13 @@
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        
       </button>
-     
+      <div class="desni" *ngIf="accountService.currentUser$ | async as user"> Dobrodošao {{user.username}} 
+        <button mat-raised-button class="btn btn-dark btn-lg btn-block" (click)="logout()">Odjava</button>
+      </div>
+      
+      
     </mat-toolbar>
     <div class="router">
       <router-outlet></router-outlet>

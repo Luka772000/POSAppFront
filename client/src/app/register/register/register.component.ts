@@ -28,25 +28,20 @@ export class RegisterComponent implements OnInit {
      initializeForm() {
        this.registerForm = new FormGroup({
          username: new FormControl(this.model.username, Validators.required),
-         password: new FormControl(this.model.password, [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
-         email: new FormControl(this.model.email, Validators.required)
+         email: new FormControl(this.model.email, Validators.required),
+         password: new FormControl(this.model.password, [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
        })
      }
      registerForm: FormGroup;
      model: any = {}
    
-     registerr() {
-       if (this.member) {
-         this.register()
-       }
+  
     
-     }
+     
      register() {
        this.accountService.register(this.model).subscribe(response => {
-   
-   
          window.setTimeout(function () { location.reload() }, 500)
-         this.router.navigateByUrl('/')
+         this.router.navigateByUrl('/create-kupac')
        }, error => {
          
         

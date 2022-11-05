@@ -3,6 +3,7 @@ import { Injectable, Output } from "@angular/core";
 import { User } from '../_models/user'
 import { map, ReplaySubject } from "rxjs";
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -11,11 +12,11 @@ import { Router } from '@angular/router';
 })
 
 export class AccountService {
-  baseUrl = 'http://localhost:32679/api/';
+  baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1)
   currentUser$ = this.currentUserSource.asObservable();
   user: User[];
-  
+
   
   constructor(private httpClient: HttpClient, private router: Router){}
 
@@ -24,6 +25,7 @@ export class AccountService {
       map((response: User) => {
         const user = response
         if (user) {
+          console.log(user)
           this.currentUserSource.next(user);
           localStorage.setItem('user', JSON.stringify(user));
           this.setCurrentUser(user);
@@ -38,7 +40,7 @@ export class AccountService {
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
-    
+    console.log(user);
   }
 
   getId(user:User){
@@ -61,7 +63,7 @@ export class AccountService {
   }
 
   register(model: any){
-    return this.httpClient.post<User>(this.baseUrl + 'Account/registerMember' , model).pipe(
+    return this.httpClient.post<User>(this.baseUrl + 'account/registerMember' , model).pipe(
       map((user: User) => {
         if (user){
           localStorage.setItem('user', JSON.stringify(user));

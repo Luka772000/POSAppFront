@@ -3,24 +3,24 @@
         <div class="row3">
             <h3 class="row3">REGISTRACIJA</h3>
         </div>
-        <form #registerForm="ngForm" (ngSubmit)="registerr()" autocomplete="off">
+        <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
             <div class="col-md-12 form-group">
                 <mat-form-field class="forma">
                     <input  matInput placeholder="Korisničko ime" name="username" [(ngModel)]="model.username" required>
                     <mat-icon matPrefix>mode_edit</mat-icon>
                 </mat-form-field>
             </div>
-            <div  class="col-md-12 form-group">
-                <mat-form-field class="forma">
-                    <input matInput placeholder="Lozinka" name="password" [formControl]="registerForm.controls['password']" [(ngModel)]="model.password" type="password"
-                        required>
-                    <mat-icon matPrefix>lock</mat-icon>
-                </mat-form-field>
-            </div>
             <div class="col-md-12 form-group">
                 <mat-form-field class="forma">
-                    <input matInput placeholder="Email" name="email" [(ngModel)]="model.email" type="email" required>
+                    <input matInput placeholder="Email" name="email"  [(ngModel)]="model.email" type="email" required>
                     <mat-icon matPrefix>alternate_email</mat-icon>
+                </mat-form-field>
+            </div>
+            <div  class="col-md-12 form-group">
+                <mat-form-field class="forma">
+                    <input matInput placeholder="Lozinka" name="password" [(ngModel)]="model.password" type="password"
+                        required>
+                    <mat-icon matPrefix>lock</mat-icon>
                 </mat-form-field>
             </div>
             <div class="col-md-12 form-group gumb">
