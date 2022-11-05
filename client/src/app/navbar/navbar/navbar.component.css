@@ -15,3 +15,8 @@
   top: 0;
   z-index: 1;
 }
+.desni {
+  color: white;
+  float: right;
+  margin-left: 81%
+}

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -22,7 +23,9 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatListModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+
+
   ],
 exports: [
     BrowserAnimationsModule,
@@ -39,7 +42,8 @@ exports: [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+
 
 ],
 })
