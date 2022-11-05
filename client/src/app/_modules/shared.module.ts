@@ -9,7 +9,8 @@ import { MatCardModule} from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-
+import { MatDialog } from '@angular/material/dialog';
+import { Toast, ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,7 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatListModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
   ],
 exports: [
     BrowserAnimationsModule,
@@ -39,8 +40,7 @@ exports: [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
-
+    MatCardModule,
 ],
 })
 export class SharedModule { }

@@ -12,3 +12,9 @@ export interface IKupac {
     adresa:string;
     mjesto:string;
 }
+export class UpdateKupacClass{
+    id: number = 0;
+    naziv: string = "";
+    adresa:string = "";
+    mjesto:string = "";
+}
