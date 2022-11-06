@@ -24,7 +24,7 @@ import {MatInputModule} from '@angular/material/input';
     MatListModule,
     FormsModule,
     MatInputModule,
-
+    
 
   ],
 exports: [
