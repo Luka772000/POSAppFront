@@ -1,0 +1,86 @@
+<form [formGroup]="uploadForm" novalidate>
+    <mat-card class="cardic">
+      <mat-card-header>
+        <mat-card-title>Unesite podatke novog proizvoda</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="col">
+          <mat-form-field class="forma">
+            <input matInput placeholder="Naziv" formControlName="naziv" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="forma">
+            <input matInput placeholder="Jedinica Mjere" formControlName="jedinicaMjere" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="forma">
+            <input matInput placeholder="Cijena" formControlName="cijena" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="forma">
+              <input matInput placeholder="Stanje" formControlName="stanje" />
+            </mat-form-field>
+          </div>
+      </mat-card-content>
+      <button
+        mat-raised-button
+        (click)="postProduct()"
+        class="right"
+        [disabled]="uploadForm.invalid"
+        color="primary"
+      >
+        Unesi
+      </button>
+    </mat-card>
+  </form>
+  <div class="fontic marginaTop">
+    <table class="tablee">
+      <tbody>
+        <tr>
+          <th class="redic" style="width: 5%">Id</th>
+          <th class="redic" style="width: 5%">Šifra</th>
+          <th class="redic" style="width: 20%">Naziv</th>
+          <th class="redic" style="width: 20%">Jedinica Mjere</th>
+          <th class="redic" style="width: 20%">Cijena</th>
+          <th class="redic" style="width: 20%">Stanje</th>
+          <th class="redic" style="width: 10%">
+            <mat-form-field>
+              <input
+                id="searchText"
+                matInput
+                name="search"
+                type="search"
+                placeholder="Pretraži..."
+                [(ngModel)]="searchText"
+                class="search-input"
+              />
+            </mat-form-field>
+          </th>
+        </tr>
+        <tr class="imena"  *ngFor="let product of products | appFilter: searchText">
+          <td class="redic">{{ product.id }}</td>
+          <td class="redic">{{ product.sifra }}</td>
+          <td class="redic">{{ product.naziv | titlecase }}</td>
+          <td class="redic">{{ product.jedinicaMjere }}</td>
+          <td class="redic">{{ product.cijena}}</td>
+          <td class="redic">{{ product.stanje }}</td>
+          <td class="redic">
+            <button
+              mat-raised-button
+              (click)="openUpdateDialog(product)"
+              class="btn btn-info"
+            >
+              Uredi proizvod
+            </button>
+            <mat-icon (click)="openDialog(product.id)" class="trash"
+              >delete_forever</mat-icon
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

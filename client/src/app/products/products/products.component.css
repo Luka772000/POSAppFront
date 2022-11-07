@@ -1,0 +1,17 @@
+.imena{
+    text-align: center;
+}
+.redic{
+    text-align: center;
+    word-wrap: break-word;
+    border-top:1px solid #ffffff
+}
+.trash {
+    font-size: 30px;
+    vertical-align: middle;
+    color: red;
+
+}
+.forma{
+    display: block;
+}

@@ -1,3 +1,4 @@
+import { ProductsComponent } from './products/products/products.component';
 import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.component';
 import { LoginGuard } from './_guards/login.guard';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
       {path: 'create-kupac', component: CreateKupacComponent},
+      {path: 'products', component: ProductsComponent},
       {path: 'pos', component: PointOfSaleComponent}
     ],
   },

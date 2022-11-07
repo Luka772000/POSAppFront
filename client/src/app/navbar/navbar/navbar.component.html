@@ -19,6 +19,16 @@
       <div class="tekst">
         <a
           mat-list-item
+          routerLink="/products"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+        <mat-icon>note_add</mat-icon> Proizvodi
+        </a>
+      </div>
+      <div class="tekst">
+        <a
+          mat-list-item
           routerLink="/"
           routerLinkActive="active"
           *ngIf="(accountService.currentUser$ | async) === null"
