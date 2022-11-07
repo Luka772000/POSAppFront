@@ -22,7 +22,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptors';
 import { ErrorInterceptor } from './_interceptors/error.interceptors';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.component';
-
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.compon
     SharedModule,
     ToastrModule.forRoot(),
     MatDialogModule,
+    MatGridListModule,
     ModalModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: "toast-bottom-left"

@@ -2,6 +2,7 @@ import { Kupac, UpdateKupacClass } from './../_models/kupac';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Proizvod } from '../_models/proizvod';
 const httpOptions = {
 headers: new HttpHeaders({
   Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user'))?.token,
@@ -17,6 +18,11 @@ export class MainService {
   getKupci() {
     return this.http.get<Kupac[]>(
       this.baseUrl + `Kupac`,
+    );
+  }
+  getProizvodi() {
+    return this.http.get<Proizvod[]>(
+      this.baseUrl + `Proizvod`,
     );
   }
   postKupac(kupacForm: any) {

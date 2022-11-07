@@ -1,7 +1,55 @@
 <div>
-    <div class="addProd">
-        
-    </div>
-    <div class="prodList"></div>
-    <div class="bill"></div>
+  <div class="addProd"></div>
+</div>
+
+<div class="grid-container">
+  <mat-grid-list cols="4" rowHeight="6vh">
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+      <mat-card class="dashboard-card1">
+        <mat-card-content class="dashboard-card-content">
+          <div class="prodList">
+            Izaberite proizvod
+            <select mat-select
+              [(ngModel)]="selectedProiz"
+              (change)="onProdChange(proizvod)"
+            >
+              <option *ngFor="let proizvod of proizvodi" [ngValue]="proizvod">
+                {{ proizvod.naziv }}
+              </option>
+            </select>
+            Količina: <input type="number" [(ngModel)]="kolicina" />
+            <button mat-button>DODAJ</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card2">
+        <mat-card-content class="dashboard-card-content">
+          <div class="kupac">
+            <select [(ngModel)]="selectedKupac" (change)="onKupacChange(kupac)">
+              <option *ngFor="let kupac of kupci" [ngValue]="kupac">
+                {{ kupac.naziv }}
+              </option>
+            </select>
+            Izaberite kupca
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="12">
+      <mat-card class="dashboard-card3">
+        <mat-card-content class="dashboard-card-content">
+          <div class="bill">dawdawdawd</div>
+        </mat-card-content>
+      </mat-card> </mat-grid-tile
+    ><mat-grid-tile [colspan]="1" [rowspan]="12">
+      <mat-card class="dashboard-card4">
+        <mat-card-content class="dashboard-card-content">
+          <div class="bill"></div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

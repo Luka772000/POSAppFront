@@ -19,6 +19,16 @@
       <div class="tekst">
         <a
           mat-list-item
+          routerLink="/pos"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+        <mat-icon>perm_identity</mat-icon> POS
+        </a>
+      </div>
+      <div class="tekst">
+        <a
+          mat-list-item
           routerLink="/"
           routerLinkActive="active"
           *ngIf="(accountService.currentUser$ | async) === null"
