@@ -22,6 +22,10 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptors';
 import { ErrorInterceptor } from './_interceptors/error.interceptors';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.component';
+import { ProductsComponent } from './products/products/products.component';
+import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog/delete-product-dialog.component';
+import { EditProductDialogComponent } from './products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
+
 import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
@@ -36,6 +40,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     DeleteKupacDialogComponent,
     EditKupacComponent,
     PointOfSaleComponent,
+    ProductsComponent,
+    DeleteProductDialogComponent,
+    EditProductDialogComponent,
 
   ],
   imports: [
