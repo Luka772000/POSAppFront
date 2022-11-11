@@ -10,9 +10,9 @@ export class LoadingService {
   busy() {
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
-      type: 'cog',
+      type: 'timer',
       bdColor: 'rgba(255,255,255,0)',
-      color: '#333333',
+      color: '#FFFFFF',
     });
   }
   idle() {

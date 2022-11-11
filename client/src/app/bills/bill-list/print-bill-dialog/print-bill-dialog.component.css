@@ -1,0 +1,26 @@
+::ng-deep mat-dialog-container {
+  background-color: white !important;
+}
+.main {
+  color: black;
+}
+.bill{
+
+    text-align: center;
+    border: 1px solid black;
+    justify-content: center;
+    margin-top: 20px;
+}
+.redic{
+    text-align: center;
+}
+h2{
+    text-align: center;
+    justify-content: center;
+}
+table{
+    width: 100%;
+}
+button{
+    margin-left: 84%;
+}

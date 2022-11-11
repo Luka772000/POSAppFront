@@ -24,6 +24,7 @@
     "@material/grid-list": "^4.0.0",
     "bs-modal": "^1.0.5",
     "ngx-bootstrap": "^9.0.0",
+    "ngx-print": "^1.2.1",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.2.1",
     "rxjs": "~7.5.0",

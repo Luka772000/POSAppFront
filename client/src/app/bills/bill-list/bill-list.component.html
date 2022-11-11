@@ -1,0 +1,27 @@
+<div class="fontic marginaTop">
+  <table class="tablee">
+    <tbody>
+      <tr>
+        <th class="redic" style="width: 20%">Sifra</th>
+        <th class="redic" style="width: 20%">Kupac</th>
+        <th class="redic" style="width: 20%">Datum</th>
+        <th class="redic" style="width: 20%">Cijena</th>
+        <th class="redic" style="width: 20%">Akcije</th>
+      </tr>
+      <tr class="imena" *ngFor="let racun of zaglavljeRacuna">
+        <td class="redic">{{ racun.broj }}</td>
+        <td class="redic">{{ racun.kupac.naziv | titlecase }}</td>
+        <td class="redic">{{ racun.datum | customDate: short }}</td>
+        <td class="redic">{{ racun.ukupnaCijena }}</td>
+        <td class="redic">
+          <button matTooltip="Obrisi" mat-button (click)="openDialog(racun.id)">
+            <mat-icon class="trash">delete_forever</mat-icon>
+          </button>
+          <button mat-button (click)="openPrintDialog(racun)">
+            <mat-icon matTooltip="Isprintaj">print</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

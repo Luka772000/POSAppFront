@@ -1,9 +1,9 @@
-import { UpdateProductClass } from './../_models/product';
+import { UpdateProizvodClass, ZaglavljeRacuna } from './../_models/product';
 import { Kupac, UpdateKupacClass } from './../_models/kupac';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Proizvod } from '../_models/proizvod';
+import { Proizvod } from '../_models/product';
 const httpOptions = {
 headers: new HttpHeaders({
   Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user'))?.token,
@@ -15,16 +15,11 @@ headers: new HttpHeaders({
 export class MainService {
   baseUrl = environment.apiUrl;
   upKupFormData: UpdateKupacClass = new UpdateKupacClass();
-  upProdFormData: UpdateProductClass = new UpdateProductClass();
+  upProdFormData: UpdateProizvodClass = new UpdateProizvodClass();
   constructor(private http: HttpClient,) { }
   getKupci() {
     return this.http.get<Kupac[]>(
       this.baseUrl + `Kupac`,
-    );
-  }
-  getProizvodi() {
-    return this.http.get<Proizvod[]>(
-      this.baseUrl + `Proizvod`,
     );
   }
   postKupac(kupacForm: any) {
@@ -44,7 +39,7 @@ export class MainService {
     );
   }
   getProducts() {
-    return this.http.get<Product[]>(
+    return this.http.get<Proizvod[]>(
       this.baseUrl + `Proizvod`,
     );
   }
@@ -57,11 +52,25 @@ export class MainService {
   deleteProduct(id: number) {
     return this.http.delete(this.baseUrl + `Proizvod/Delete/` + id);
   }
+  deleteRacun(id: number) {
+    return this.http.delete(this.baseUrl + `Racun/Delete/` + id);
+  }
   updateProduct() {
     console.log(this.upProdFormData);
     return this.http.put(
       this.baseUrl + `Proizvod` ,
       this.upProdFormData
+    );
+  }
+  postRacun(uploadRacunForm:any){
+    return this.http.post(
+      this.baseUrl + `Racun`,
+      uploadRacunForm
+    );
+  }
+  getRacuni(){
+    return this.http.get<ZaglavljeRacuna[]>(
+      this.baseUrl + `Racun`
     );
   }
 }

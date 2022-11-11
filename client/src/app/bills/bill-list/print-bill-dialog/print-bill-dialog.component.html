@@ -1,0 +1,43 @@
+<div class="main" id="print">
+  Ime kupca: {{ racun.racun.kupac.naziv }}<br /><br />
+  Datum izdavanja racuna: {{ racun.racun.datum }}
+
+  <h2>Detalji racuna</h2>
+  <div class="bill">
+    <br />
+    <table>
+      <tbody>
+        <tr>
+          <th class="redic" style="width: 20%">Proizvodi</th>
+
+          <th class="redic" style="width: 20%">Kolicina proizvoda</th>
+          <th class="redic" style="width: 20%">Cijena proizvoda</th>
+          <th class="redic" style="width: 20%">Popust</th>
+          <th class="redic" style="width: 20%">Ukupna vrijednost</th>
+        </tr>
+        <tr *ngFor="let proizvod of racun.racun.stavkeRacuna">
+          <td class="redic">
+            {{ proizvod.proizvod.naziv }}
+          </td>
+          <td class="redic">
+            {{ proizvod.kolicina }}
+          </td>
+          <td class="redic">
+            {{ proizvod.cijena }}
+          </td>
+          <td class="redic">
+            {{ proizvod.iznosPopusta }}
+          </td>
+          <td class="redic">
+            {{ proizvod.vrijednost }}
+          </td>
+        </tr>
+        <br />
+      </tbody>
+    </table>
+  </div>
+  <br />
+</div>
+<button mat-button color="primary" printSectionId="print" ngxPrint>
+  ISPRINTAJ RACUN
+</button>

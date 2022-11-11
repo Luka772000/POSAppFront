@@ -1,3 +1,4 @@
+import { Proizvod } from './../../../_models/product';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,7 +11,7 @@ import { MainService } from 'src/app/_services/main.service';
   styleUrls: ['./edit-product-dialog.component.css']
 })
 export class EditProductDialogComponent implements OnInit {
-  upProd: any = {};
+  upProd: Proizvod;
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product) { }
   updateForm: FormGroup;
   ngOnInit(): void {this.initializeForm();}

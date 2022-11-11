@@ -14,7 +14,7 @@ import { AccountService } from 'src/app/_services/account.service';
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
 
-  constructor(private accountService: AccountService, private fb: FormBuilder,
+  constructor(public accountService: AccountService, private fb: FormBuilder,
      private router: Router) { }
 
      member = true;

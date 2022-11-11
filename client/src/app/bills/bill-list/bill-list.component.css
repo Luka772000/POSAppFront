@@ -1,0 +1,11 @@
+.redic {
+  font-size: larger;
+  height:40px;
+  vertical-align: middle;
+  text-align: center;
+  word-wrap: break-word;
+  border-top: 1px solid #ffffff;
+}
+table{
+  width:100%
+}

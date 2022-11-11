@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { IProduct } from 'src/app/_models/product';
+import { IProizvod } from 'src/app/_models/product';
 import { MainService } from 'src/app/_services/main.service';
 import { DeleteProductDialogComponent } from '../delete-product-dialog/delete-product-dialog/delete-product-dialog.component';
 import { EditProductDialogComponent } from '../edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
@@ -18,7 +18,7 @@ export class ProductsComponent implements OnInit {
   constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { }
   uploadForm: FormGroup;
   searchText = '';
-  products : IProduct[];
+  products : IProizvod[];
   ngOnInit(): void {
     this.loadProducts();
     this.initializeForm();
@@ -57,7 +57,7 @@ export class ProductsComponent implements OnInit {
       data: { id },
     });
   }
-  openUpdateDialog(product: IProduct) {
+  openUpdateDialog(product: IProizvod) {
     this.dialog.open(EditProductDialogComponent, {
       width: '600px',
       height: '610px',

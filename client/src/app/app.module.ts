@@ -1,6 +1,5 @@
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
-import { Kupac } from './_models/kupac';
 import { SearchFilter1 } from './buyers/create-kupac/search-filter.component';
 import { LoginComponent } from './login/login/login.component';
 import { NgModule } from '@angular/core';
@@ -8,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
-import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,12 +25,16 @@ import { DeleteProductDialogComponent } from './products/delete-product-dialog/d
 import { EditProductDialogComponent } from './products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CustomDatePipe} from './bills/point-of-sale/custom-date-pipe/custom-date-pipe.component';
+import { BillListComponent } from './bills/bill-list/bill-list.component';
+import { DeleteBillDialogComponent } from './bills/bill-list/delete-bill-dialog/delete-bill-dialog.component';
+import { PrintBillDialogComponent } from './bills/bill-list/print-bill-dialog/print-bill-dialog.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TextInputComponent,
     LoginComponent,
     RegisterComponent,
     CreateKupacComponent,
@@ -43,6 +45,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ProductsComponent,
     DeleteProductDialogComponent,
     EditProductDialogComponent,
+    CustomDatePipe,
+    BillListComponent,
+    DeleteBillDialogComponent,
+    PrintBillDialogComponent,
+    
 
   ],
   imports: [
@@ -59,6 +66,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
       positionClass: "toast-bottom-left"
     }),
     NgxSpinnerModule,
+    NgxPrintModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
