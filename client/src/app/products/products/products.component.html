@@ -16,12 +16,12 @@
         </div>
         <div class="col">
           <mat-form-field class="forma">
-            <input matInput placeholder="Cijena" formControlName="cijena" />
+            <input (keypress)="numberOnly($event)" matInput placeholder="Cijena" formControlName="cijena" />
           </mat-form-field>
         </div>
         <div class="col">
             <mat-form-field class="forma">
-              <input matInput placeholder="Stanje" formControlName="stanje" />
+              <input (keypress)="numberOnly($event)"  matInput placeholder="Stanje" formControlName="stanje" />
             </mat-form-field>
           </div>
       </mat-card-content>

@@ -13,13 +13,13 @@
     </div>
     <div class="col-md-12 form-group">
         <mat-form-field class="forma">
-            <input matInput placeholder="Cijena" formControlName="cijena" required>
+            <input (keypress)="numberOnly($event)" matInput placeholder="Cijena" formControlName="cijena" required>
             <mat-icon matPrefix>lock</mat-icon>
         </mat-form-field>
     </div>
     <div class="col-md-12 form-group">
         <mat-form-field class="forma">
-            <input matInput placeholder="Stanje" formControlName="stanje" required>
+            <input (keypress)="numberOnly($event)" matInput placeholder="Stanje" formControlName="stanje" required>
             <mat-icon matPrefix>lock</mat-icon>
         </mat-form-field>
     </div>

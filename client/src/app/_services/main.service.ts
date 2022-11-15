@@ -56,7 +56,6 @@ export class MainService {
     return this.http.delete(this.baseUrl + `Racun/Delete/` + id);
   }
   updateProduct() {
-    console.log(this.upProdFormData);
     return this.http.put(
       this.baseUrl + `Proizvod` ,
       this.upProdFormData

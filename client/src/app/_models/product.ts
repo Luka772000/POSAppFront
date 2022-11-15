@@ -1,6 +1,5 @@
 
-import { DecimalPipe } from "@angular/common";
-import { NumberValueAccessor } from "@angular/forms";
+
 import { IKupac, Kupac } from "./kupac";
 
 export class Proizvod {

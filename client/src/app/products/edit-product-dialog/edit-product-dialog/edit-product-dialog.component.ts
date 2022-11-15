@@ -11,7 +11,7 @@ import { MainService } from 'src/app/_services/main.service';
   styleUrls: ['./edit-product-dialog.component.css']
 })
 export class EditProductDialogComponent implements OnInit {
-  upProd: Proizvod;
+  upProd: any={};
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product) { }
   updateForm: FormGroup;
   ngOnInit(): void {this.initializeForm();}
@@ -29,6 +29,14 @@ export class EditProductDialogComponent implements OnInit {
     this.updateForm.controls['cijena'].setValue(this.product.product.cijena);
     this.updateForm.controls['stanje'].setValue(this.product.product.stanje);
     
+  }
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
   updateProduct() {
     this.mainService.upProdFormData = this.updateForm.value;

@@ -96,7 +96,6 @@ export class PointOfSaleComponent implements OnInit {
     });
   }
   addProizvod() {
-    console.log(this.addStavkaForm.controls['kolicina'].value);
     this.addStavkaForm.controls['cijena'].setValue(
       this.selectedProizvod.cijena
     );
@@ -117,7 +116,6 @@ export class PointOfSaleComponent implements OnInit {
         this.addStavkaForm.controls['kolicina'].value -
         this.addStavkaForm.controls['iznosPopusta'].value
     );
-    console.log(this.addStavkaForm.value);
     const productListForm = this.uploadRacunForm.get('stavkeRacuna');
     productListForm.setValue([
       ...productListForm.value,
