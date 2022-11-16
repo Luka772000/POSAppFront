@@ -13,7 +13,9 @@ export class EditProductDialogComponent implements OnInit {
   upProd: any={};
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product) { }
   updateForm: FormGroup;
+
   ngOnInit(): void {this.initializeForm();}
+  
   initializeForm() {
     this.updateForm = new FormGroup({
       id : new FormControl(this.upProd.id),
