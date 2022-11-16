@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./edit-kupac.component.css']
 })
 export class EditKupacComponent implements OnInit {
-  upKup: Kupac
+  upKup: any = {}
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public kupac) { }
   updateForm: FormGroup;
   ngOnInit(): void {this.initializeForm();}

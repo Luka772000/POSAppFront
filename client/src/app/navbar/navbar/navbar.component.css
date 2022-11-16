@@ -16,7 +16,7 @@
   z-index: 1;
 }
 .active {
-  background: #7b20a2;
+  background: #3F51B5;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .desni {

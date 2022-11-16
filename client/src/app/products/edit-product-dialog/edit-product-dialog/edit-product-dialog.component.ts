@@ -11,10 +11,12 @@ import { MainService } from 'src/app/_services/main.service';
   styleUrls: ['./edit-product-dialog.component.css']
 })
 export class EditProductDialogComponent implements OnInit {
-  upProd: Proizvod;
+  upProd: any={} ;
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product) { }
   updateForm: FormGroup;
+
   ngOnInit(): void {this.initializeForm();}
+  
   initializeForm() {
     this.updateForm = new FormGroup({
       id : new FormControl(this.upProd.id),
