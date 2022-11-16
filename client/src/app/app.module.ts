@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './_modules/shared.module';
@@ -23,7 +23,6 @@ import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.compon
 import { ProductsComponent } from './products/products/products.component';
 import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog/delete-product-dialog.component';
 import { EditProductDialogComponent } from './products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
-
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CustomDatePipe} from './bills/point-of-sale/custom-date-pipe/custom-date-pipe.component';
 import { BillListComponent } from './bills/bill-list/bill-list.component';

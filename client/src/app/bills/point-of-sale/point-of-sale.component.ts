@@ -1,11 +1,10 @@
 import { IZaglavljeRacuna } from './../../_models/product';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastNoAnimation } from 'ngx-toastr';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { IKupac } from 'src/app/_models/kupac';
-import { IProizvod, IStavkaRacuna } from 'src/app/_models/product';
+import { IProizvod } from 'src/app/_models/product';
 import { MainService } from 'src/app/_services/main.service';
 
 @Component({

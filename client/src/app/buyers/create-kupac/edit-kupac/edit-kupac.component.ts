@@ -2,7 +2,6 @@ import { MainService } from 'src/app/_services/main.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { IKupac, Kupac } from 'src/app/_models/kupac';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

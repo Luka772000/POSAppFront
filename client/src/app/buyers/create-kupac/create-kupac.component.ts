@@ -1,8 +1,7 @@
-import { IKupac, Kupac } from '../../_models/kupac';
+import { IKupac} from '../../_models/kupac';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/_services/main.service';
-import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteKupacDialogComponent } from './delete-kupac-dialog/delete-kupac-dialog.component';
 import { EditKupacComponent } from './edit-kupac/edit-kupac.component';

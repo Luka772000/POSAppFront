@@ -1,5 +1,4 @@
 import { MainService } from './../../../_services/main.service';
-import { Kupac } from './../../../_models/kupac';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
