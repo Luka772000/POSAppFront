@@ -1,12 +1,16 @@
 
 
+import { DecimalPipe } from "@angular/common";
+import { NumberValueAccessor } from "@angular/forms";
+import { jedinicaMjere } from "./jedinicaMjere";
 import { IKupac, Kupac } from "./kupac";
 
 export class Proizvod {
     id: number = 0;
     sifra: number = 0;
     naziv: string = "";
-    jedinicaMjere:string = "";
+    jedinicaMjere: jedinicaMjere;
+    jedinicaId: number = 0;
     cijena: number = 0;
     stanje: number = 0;
 }
@@ -14,16 +18,17 @@ export interface IProizvod {
     id: number;
     sifra: number;
     naziv: string;
-    jedinicaMjere: string;
+    jedinicaMjere: jedinicaMjere;
+    jedinicaId: number;
     cijena: number;
     stanje: number;
 }
 export class UpdateProizvodClass{
     id: number = 0;
     naziv: string = "";
-    jedinicaMjere: string = "";
     cijena: number = 0;
     stanje: number = 0;
+    jedinicaId: number = 0;
 }
 export interface IStavkaRacuna{
     id: number;
