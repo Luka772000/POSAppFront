@@ -4,59 +4,40 @@
 <form [formGroup]="uploadRacunForm">
   <div class="grid-container">
     <mat-grid-list cols="4" rowHeight="6vh">
-      <mat-grid-tile [colspan]="3" [rowspan]="2">
-        <mat-card class="dashboard-card1">
+      <mat-grid-tile [colspan]="3" [rowspan]="14">
+        <mat-card class="dashboard-card3">
           <mat-card-content class="dashboard-card-content">
-            <form [formGroup]="addStavkaForm">
-              <div class="prodList">
-                Proizvod
-                <select
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="selectedProizvod"
-                  placeholder="Proizvod"
-                  (change)="onProizvodChange($event)"
-                >
-                  <option
-                    *ngFor="let proizvod of proizvodi"
-                    [ngValue]="proizvod"
-                  >
-                    {{ proizvod.naziv }}
-                  </option>
-                </select>
-                Količina:
-                <input
-                  class="kupac"
-                  matInput
-                  type="number"
-                  min="1"
-                  max="{{ maxKolicina }}"
-                  placeholder="Količina"
-                  formControlName="kolicina"
-                />
-                sa dodatnim popustom od
-                <input
-                  class="kupac"
-                  matInput
-                  type="number"
-                  formControlName="popust"
-                  min="0"
-                  max="100"
-                />
-                %
-                <button
-                  mat-button
-                  required
-                  [disabled]="addStavkaForm.invalid"
-                  (click)="addProizvod()"
-                >
-                  DODAJ
-                </button>
-              </div>
-            </form>
+            <div class="bill">
+              <table>
+                <tbody>
+                  <tr>
+                    <th class="redic" style="width: 16.5%">Proizvod</th>
+                    <th class="redic" style="width: 16.5%">Količina</th>
+                    <th class="redic" style="width: 16.5%">Cijena</th>
+                    <th class="redic" style="width: 16.5%">Popust</th>
+                    <th class="redic" style="width: 16.5%">Iznos popusta</th>
+                    <th class="redic" style="width: 16.5%">Vrijednost</th>
+                  </tr>
+                  <tr *ngFor="let dodanproizvod of stavke">
+                    <td class="redic">
+                      {{ dodanproizvod.naziv }}
+                    </td>
+                    <td class="redic">
+                      {{ dodanproizvod.kolicina }} {{dodanproizvod.jedinicaMjere | lowercase}}
+                    </td>
+                    <td class="redic">
+                      {{ dodanproizvod.cijena | number : '.2-2'}} KM
+                    </td>
+                    <td class="redic">{{ dodanproizvod.popust }} %</td>
+                    <td class="redic">{{ dodanproizvod.iznosPopusta | number : '.2-2'}} KM</td>
+                    <td class="redic">{{ dodanproizvod.vrijednost | number : '.2-2'}} KM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
-
       <mat-grid-tile [colspan]="1" [rowspan]="2">
         <mat-card class="dashboard-card2">
           <mat-card-content class="dashboard-card-content">
@@ -77,40 +58,6 @@
               >
                 DODAJ KUPCA
               </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="3" [rowspan]="12">
-        <mat-card class="dashboard-card3">
-          <mat-card-content class="dashboard-card-content">
-            <div class="bill">
-              <table>
-                <tbody>
-                  <tr>
-                    <th class="redic" style="width: 16.5%">Proizvod</th>
-                    <th class="redic" style="width: 16.5%">Količina</th>
-                    <th class="redic" style="width: 16.5%">Cijena</th>
-                    <th class="redic" style="width: 16.5%">Popust</th>
-                    <th class="redic" style="width: 16.5%">Iznos popusta</th>
-                    <th class="redic" style="width: 16.5%">Vrijednost</th>
-                  </tr>
-                  <tr *ngFor="let dodanproizvod of stavke">
-                    <td class="redic">
-                      {{ dodanproizvod.naziv }}
-                    </td>
-                    <td class="redic">
-                      {{ dodanproizvod.kolicina }}
-                    </td>
-                    <td class="redic">
-                      {{ dodanproizvod.cijena }}
-                    </td>
-                    <td class="redic">{{ dodanproizvod.popust }} %</td>
-                    <td class="redic">{{ dodanproizvod.iznosPopusta }} KM</td>
-                    <td class="redic">{{ dodanproizvod.vrijednost }} KM</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </mat-card-content>
         </mat-card> </mat-grid-tile

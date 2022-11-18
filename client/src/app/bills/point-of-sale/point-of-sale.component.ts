@@ -1,11 +1,15 @@
 import { IZaglavljeRacuna } from './../../_models/product';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { IKupac } from 'src/app/_models/kupac';
 import { IProizvod } from 'src/app/_models/product';
 import { MainService } from 'src/app/_services/main.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProductDialogComponent } from 'src/app/products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
+import { AddStavkaComponent } from '../add-stavka/add-stavka.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-point-of-sale',
@@ -30,10 +34,33 @@ export class PointOfSaleComponent implements OnInit {
       ];
     })
   );
-
+  @HostListener('window:keydown.+') otvori() {
+    this.dialog.closeAll();
+    let dialogRef = this.dialog.open(AddStavkaComponent, {
+      width: '600px',
+      height: '350px',
+      data: { proizvodi: this.proizvodi },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      const productListForm = this.uploadRacunForm.get('stavkeRacuna');
+      productListForm.setValue([...productListForm.value, res]);
+      for (let i = 0; i < this.proizvodi.length; i++) {
+        if (this.proizvodi[i].id == res.proizvodId) {
+          this.proizvodi[i].stanje = this.proizvodi[i].stanje - res.kolicina;
+        }
+      }
+      this.stavke = this.uploadRacunForm.get('stavkeRacuna').value;
+      console.log(this.stavke);
+      this.toastr.success('Proizvod je dodan na račun');
+      this.findTotal();
+      this.check();
+    });
+  }
   constructor(
     private mainService: MainService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
 
   maxKolicina: number = 1;
@@ -41,13 +68,9 @@ export class PointOfSaleComponent implements OnInit {
   kupac: IKupac;
   proizvodi: IProizvod[];
   uploadRacunForm: FormGroup;
-  addStavkaForm: FormGroup;
   model: any = {};
-  model1: any = {};
   selectedKupac: IKupac;
   selectedProizvod: IProizvod = null;
-  kolicina: number = 1;
-  popust: number = 0;
   stavke: any[] = [];
   holder: any = {};
   total: number = 0;
@@ -84,46 +107,8 @@ export class PointOfSaleComponent implements OnInit {
     });
     this.uploadRacunForm.controls['datum'].setValue(new Date());
     this.uploadRacunForm.controls['napomena'].setValue('Nema napomene');
-    this.addStavkaForm = new FormGroup({
-      naziv: new FormControl(this.model1.naziv),
-      kolicina: new FormControl(this.model1.kolicina, Validators.required),
-      cijena: new FormControl(this.model1.cijena),
-      popust: new FormControl(this.model1.popust, Validators.required),
-      iznosPopusta: new FormControl(this.model1.iznosPopusta),
-      vrijednost: new FormControl(this.model1.vrijednost),
-      proizvodId: new FormControl(this.model1.proizvodId),
-    });
   }
   addProizvod() {
-    this.addStavkaForm.controls['cijena'].setValue(
-      this.selectedProizvod.cijena
-    );
-    this.addStavkaForm.controls['naziv'].setValue(this.selectedProizvod.naziv);
-    this.addStavkaForm.controls['proizvodId'].setValue(
-      this.selectedProizvod.id
-    );
-    this.addStavkaForm.controls['popust'].setValue(
-      this.addStavkaForm.controls['popust'].value
-    );
-    this.addStavkaForm.controls['iznosPopusta'].setValue(
-      (this.addStavkaForm.controls['popust'].value / 100) *
-        this.addStavkaForm.controls['cijena'].value *
-        this.addStavkaForm.controls['kolicina'].value
-    );
-    this.addStavkaForm.controls['vrijednost'].setValue(
-      this.addStavkaForm.controls['cijena'].value *
-        this.addStavkaForm.controls['kolicina'].value -
-        this.addStavkaForm.controls['iznosPopusta'].value
-    );
-    const productListForm = this.uploadRacunForm.get('stavkeRacuna');
-    productListForm.setValue([
-      ...productListForm.value,
-      this.addStavkaForm.value,
-    ]);
-    this.selectedProizvod.stanje -=
-      this.addStavkaForm.controls['kolicina'].value;
-    this.stavke = this.uploadRacunForm.get('stavkeRacuna').value;
-    this.addStavkaForm.reset();
     this.findTotal();
     this.check();
   }
@@ -156,6 +141,9 @@ export class PointOfSaleComponent implements OnInit {
     }
   }
   postRacun() {
+    for (let i = 0; i < this.model.stavkeRacuna.length; i++) {
+      delete this.model.stavkeRacuna[i].jedinicaMjere;
+    }
     this.model = this.uploadRacunForm.value;
     console.log(this.model);
     this.mainService.postRacun(this.model).subscribe(

@@ -29,7 +29,8 @@ import { BillListComponent } from './bills/bill-list/bill-list.component';
 import { DeleteBillDialogComponent } from './bills/bill-list/delete-bill-dialog/delete-bill-dialog.component';
 import { PrintBillDialogComponent } from './bills/bill-list/print-bill-dialog/print-bill-dialog.component';
 import { NgxPrintModule } from 'ngx-print';
-
+import { AddStavkaComponent } from './bills/add-stavka/add-stavka.component';
+import{NgSelectModule} from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { NgxPrintModule } from 'ngx-print';
     BillListComponent,
     DeleteBillDialogComponent,
     PrintBillDialogComponent,
+    AddStavkaComponent,
     
 
   ],
@@ -66,6 +68,7 @@ import { NgxPrintModule } from 'ngx-print';
     }),
     NgxSpinnerModule,
     NgxPrintModule,
+    NgSelectModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

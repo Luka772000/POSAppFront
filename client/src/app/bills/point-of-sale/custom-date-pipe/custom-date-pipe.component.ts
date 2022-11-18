@@ -22,7 +22,7 @@ export class CustomDatePipe extends DatePipe implements PipeTransform {
   transform(date: Date, format?: string): any {
     const pattern = 
       this.datePatterns.get(format) 
-      || this.datePatterns.get('medium'); //default format
+      || this.datePatterns.get('short'); //default format
 
     return super.transform(date, pattern);
   }
