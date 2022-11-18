@@ -23,13 +23,19 @@ import { PointOfSaleComponent } from './bills/point-of-sale/point-of-sale.compon
 import { ProductsComponent } from './products/products/products.component';
 import { DeleteProductDialogComponent } from './products/delete-product-dialog/delete-product-dialog/delete-product-dialog.component';
 import { EditProductDialogComponent } from './products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CustomDatePipe} from './bills/point-of-sale/custom-date-pipe/custom-date-pipe.component';
 import { BillListComponent } from './bills/bill-list/bill-list.component';
 import { DeleteBillDialogComponent } from './bills/bill-list/delete-bill-dialog/delete-bill-dialog.component';
 import { PrintBillDialogComponent } from './bills/bill-list/print-bill-dialog/print-bill-dialog.component';
 import { NgxPrintModule } from 'ngx-print';
+import { MatTableModule } from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -67,6 +73,13 @@ import { NgxPrintModule } from 'ngx-print';
     }),
     NgxSpinnerModule,
     NgxPrintModule,
+    MatTableModule,
+    MatSortModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

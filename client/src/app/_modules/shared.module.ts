@@ -8,7 +8,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule} from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
+
+
+
 
 
 
@@ -23,7 +25,9 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatListModule,
     FormsModule,
-    MatInputModule,
+
+ 
+
     
 
   ],
@@ -36,13 +40,14 @@ exports: [
     MatIconModule,
     MatListModule,
     FormsModule,
-    MatInputModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
     MatCardModule,
+   
+
 ],
 })
 export class SharedModule { }

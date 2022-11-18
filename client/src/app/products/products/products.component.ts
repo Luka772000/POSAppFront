@@ -1,55 +1,72 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { IProizvod } from 'src/app/_models/product';
+import { IjedinicaMjere } from 'src/app/_models/jedinicaMjere';
+import { IProizvod, Proizvod } from 'src/app/_models/product';
 import { MainService } from 'src/app/_services/main.service';
 import { DeleteProductDialogComponent } from '../delete-product-dialog/delete-product-dialog/delete-product-dialog.component';
 import { EditProductDialogComponent } from '../edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-  model: any = {};
+export class ProductsComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['sifra', 'naziv', 'jedinicaMjere', 'cijena', 'stanje', 'opcije', 'opcije2'];
+  dataSource: MatTableDataSource<Proizvod>;
+  
   bsModalRef: BsModalRef;
-  constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { }
-  uploadForm: FormGroup;
-  searchText = '';
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   products : IProizvod[];
+  
+  searchText = '';
+  units: IjedinicaMjere[];
+  
+  constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { 
+    this.dataSource = new MatTableDataSource(this.products);
+   }
+  
+  
+  
   ngOnInit(): void {
     this.loadProducts();
-    this.initializeForm();
+    this.loadUnits();
   }
-  initializeForm() {
-    this.uploadForm = new FormGroup({
-      naziv: new FormControl(this.model.naziv, [Validators.maxLength(50),Validators.required]),
-      jedinicaMjere: new FormControl(this.model.jedinicaMjere, [Validators.maxLength(50),Validators.required]),
-      cijena: new FormControl(this.model.cijena,[Validators.maxLength(50),Validators.required]),
-      stanje: new FormControl(this.model.stanje,[Validators.maxLength(50),Validators.required]),
-    });
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+  
  
   loadProducts() {
     this.mainService.getProducts().subscribe((Product) => {
       this.products = Product;
+      this.dataSource.data = this.products;
+      console.log(this.products);
     });
   }
-  postProduct() {
-    this.model = this.uploadForm.value;
-    console.log(this.model);
-    this.mainService.postProduct(this.model).subscribe(
-      (res) => {
-        this.loadProducts();
-        this.uploadForm.reset();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+
+  loadUnits() {
+    this.mainService.getUnits().subscribe((jedinicaMjere) => {
+      this.units = jedinicaMjere;
+    });
+  }
+  
   openDialog(id: number) {
     this.dialog.open(DeleteProductDialogComponent, {
       width: '400px',
@@ -60,8 +77,17 @@ export class ProductsComponent implements OnInit {
   openUpdateDialog(product: IProizvod) {
     this.dialog.open(EditProductDialogComponent, {
       width: '600px',
-      height: '610px',
+      height: '560px',
       data: { product },
   })}
   
+  @HostListener('window:keydown.+') otvori() {
+    this.dialog.closeAll();
+    let dialogRef = this.dialog.open(EditProductDialogComponent, {
+      width: '600px',
+      height: '550px',
+      data: { product: this.products },
+    });
+  
+  }
 }

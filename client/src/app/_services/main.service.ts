@@ -1,3 +1,4 @@
+import { jedinicaMjere } from './../_models/jedinicaMjere';
 import { UpdateProizvodClass, ZaglavljeRacuna } from './../_models/product';
 import { Kupac, UpdateKupacClass } from './../_models/kupac';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -41,6 +42,11 @@ export class MainService {
   getProducts() {
     return this.http.get<Proizvod[]>(
       this.baseUrl + `Proizvod`,
+    );
+  }
+  getUnits() {
+    return this.http.get<jedinicaMjere[]>(
+      this.baseUrl + `Jedinica`,
     );
   }
   postProduct(proizvodForm: any) {
