@@ -90,7 +90,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div class="desni" *ngIf="accountService.currentUser$ | async as user">
-        Dobrodošao {{ user.username }}
+        Dobrodošao {{ user.username | titlecase }}
         <button
           mat-raised-button
           class="btn btn-dark btn-lg btn-block"

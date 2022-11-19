@@ -12,7 +12,7 @@ export class LoadingService {
     this.spinnerService.show(undefined, {
       type: 'timer',
       bdColor: 'rgba(255,255,255,0)',
-      color: '#FFFFFF',
+      color: '#0a0a0a',
     });
   }
   idle() {

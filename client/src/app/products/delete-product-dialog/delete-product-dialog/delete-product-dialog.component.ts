@@ -13,6 +13,7 @@ export class DeleteProductDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   deleteProduct(id: number) {
     this.mainService.deleteProduct(id).subscribe(
       (result) => {

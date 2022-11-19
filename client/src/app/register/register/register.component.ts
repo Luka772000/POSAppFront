@@ -10,12 +10,13 @@ import { AccountService } from 'src/app/_services/account.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
-
+  registerForm: FormGroup;
+  model: any = {}
   constructor(public accountService: AccountService, private fb: FormBuilder,
      private router: Router) { }
-
      member = true;
      reminder = false;
      ngOnInit(): void {
@@ -23,31 +24,22 @@ export class RegisterComponent implements OnInit {
        this.switchUrl()
      }
    
-  
      initializeForm() {
        this.registerForm = new FormGroup({
          username: new FormControl(this.model.username, Validators.required),
          email: new FormControl(this.model.email, Validators.required),
          password: new FormControl(this.model.password, [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
        })
-     }
-     registerForm: FormGroup;
-     model: any = {}
-   
-  
-    
-     
+     }   
+
      register() {
        this.accountService.register(this.model).subscribe(response => {
          window.setTimeout(function () { location.reload() }, 500)
          this.router.navigateByUrl('/create-kupac')
        }, error => {
-         
-        
-       })
+      })
      }
-   
-   
+     
      switchUrl() {
        const user: User = JSON.parse(localStorage.getItem('user'));
        if (user) {
