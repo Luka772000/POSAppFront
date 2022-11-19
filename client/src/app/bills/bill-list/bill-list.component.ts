@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteBillDialogComponent } from './delete-bill-dialog/delete-bill-dialog.component';
 import { PrintBillDialogComponent } from './print-bill-dialog/print-bill-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-bill-list',
@@ -11,16 +12,22 @@ import { PrintBillDialogComponent } from './print-bill-dialog/print-bill-dialog.
   styleUrls: ['./bill-list.component.css'],
 })
 export class BillListComponent implements OnInit {
-  constructor(private mainService: MainService, private dialog: MatDialog) {}
+  constructor(private mainService: MainService, private dialog: MatDialog) {
+    this.loadRacuni();
+    this.dataSource = new MatTableDataSource(this.zaglavljeRacuna);
+  }
   zaglavljeRacuna: ZaglavljeRacuna[];
+  dataSource: MatTableDataSource<ZaglavljeRacuna>;
   selectedRacun: any;
-
+  displayedColumns: string[] = ['broj', 'datum', 'ime', 'ukupno', 'akcije'];
   ngOnInit(): void {
     this.loadRacuni();
+    console.log(this.dataSource);
   }
   loadRacuni() {
     this.mainService.getRacuni().subscribe((ZaglavljeRacuna) => {
       this.zaglavljeRacuna = ZaglavljeRacuna;
+      this.dataSource.data=this.zaglavljeRacuna;
       console.log(this.zaglavljeRacuna);
     });
   }

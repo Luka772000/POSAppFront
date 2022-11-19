@@ -1,21 +1,56 @@
-button{
-  background-color : #3f51b5 ;
-  color:white;
-  margin-left:5px
+button {
+  background-color: #3f51b5;
+  color: white;
+  margin-left: 5px;
 }
-.unesi{
-  margin-top:50%
+.mat-column-Vrijednost, .mat-column-Koli-ina, .mat-column-Cijena , .mat-column-Popust , .mat-column-Iznos-popusta, .mat-column-Naziv, .mat-column-Akcija {
+  text-align: center;
 }
-.example-full-width{
-  height:100%;
-  width:100%;
+::ng-deep .ng-dropdown-panel {
+  margin: 0 auto;
+  background-color: #ffffff;
+  overflow: visible !important; 
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  display: block !important;
+}
+.btn{
+  background-color: white;
+}
+::ng-deep .ng-select {
+  overflow: visible;
+  text-align: center;
+  width: 100%;
+  font-size: large;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  display: block !important;
+}
+.opcije {
+  text-align: center;
+  background-color: white;
+}
+.unesi {
+  margin-top: 50%;
+}
+.example-full-width {
+  height: 100%;
+  width: 100%;
   margin-bottom: 30%;
 }
-.bill1{
-  margin-top:10px;
+.bill1 {
+  margin-top: 10px;
   font-size: large;
   text-align: center;
-    
+}
+.bill2 {
+  margin-top: 10px;
+  font-size: large;
+  text-align: center;
+  border: #dddddd 2px solid;
+  border-radius: 5px;
+  width: 100%;
+  background-color: rgb(231, 231, 231);
 }
 .kupac {
   border-width: 1px;
@@ -71,7 +106,7 @@ button{
 }
 .redic {
   font-size: larger;
-  height:40px;
+  height: 40px;
   vertical-align: middle;
   text-align: center;
   word-wrap: break-word;
@@ -100,7 +135,7 @@ select {
   background: #5c6664;
   background-image: none;
   flex: 1;
-  
+
   color: #fff;
   cursor: pointer;
   font-size: 1em;

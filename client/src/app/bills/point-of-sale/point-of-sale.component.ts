@@ -1,4 +1,4 @@
-import { IZaglavljeRacuna } from './../../_models/product';
+import { IZaglavljeRacuna, ZaglavljeRacuna } from './../../_models/product';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from 'src/app/products/edit-product-dialog/edit-product-dialog/edit-product-dialog.component';
 import { AddStavkaComponent } from '../add-stavka/add-stavka.component';
 import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource } from '@angular/material/table';
+import { PrintBillDialogComponent } from '../bill-list/print-bill-dialog/print-bill-dialog.component';
 
 @Component({
   selector: 'app-point-of-sale',
@@ -34,35 +36,25 @@ export class PointOfSaleComponent implements OnInit {
       ];
     })
   );
-  @HostListener('window:keydown.+') otvori() {
-    this.dialog.closeAll();
-    let dialogRef = this.dialog.open(AddStavkaComponent, {
-      width: '600px',
-      height: '350px',
-      data: { proizvodi: this.proizvodi },
-    });
-    dialogRef.afterClosed().subscribe((res) => {
-      const productListForm = this.uploadRacunForm.get('stavkeRacuna');
-      productListForm.setValue([...productListForm.value, res]);
-      for (let i = 0; i < this.proizvodi.length; i++) {
-        if (this.proizvodi[i].id == res.proizvodId) {
-          this.proizvodi[i].stanje = this.proizvodi[i].stanje - res.kolicina;
-        }
-      }
-      this.stavke = this.uploadRacunForm.get('stavkeRacuna').value;
-      console.log(this.stavke);
-      this.toastr.success('Proizvod je dodan na račun');
-      this.findTotal();
-      this.check();
-    });
-  }
+
   constructor(
     private mainService: MainService,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
-
+  ) {
+    this.dataSource = new MatTableDataSource(this.stavke);
+  }
+  displayedColumns: string[] = [
+    'Naziv',
+    'Cijena',
+    'Količina',
+    'Popust',
+    'Iznos popusta',
+    'Vrijednost',
+    'Akcija',
+  ];
+  dataSource: MatTableDataSource<any>;
   maxKolicina: number = 1;
   kupci: IKupac[];
   kupac: IKupac;
@@ -72,7 +64,6 @@ export class PointOfSaleComponent implements OnInit {
   selectedKupac: IKupac;
   selectedProizvod: IProizvod = null;
   stavke: any[] = [];
-  holder: any = {};
   total: number = 0;
   totalPopust: number = 0;
   totalBezPopusta: number = 0;
@@ -108,21 +99,11 @@ export class PointOfSaleComponent implements OnInit {
     this.uploadRacunForm.controls['datum'].setValue(new Date());
     this.uploadRacunForm.controls['napomena'].setValue('Nema napomene');
   }
-  addProizvod() {
-    this.findTotal();
-    this.check();
-  }
-  addKupac() {
-    this.uploadRacunForm.controls['kupacId'].setValue(this.selectedKupac.id);
-    this.holder = this.uploadRacunForm.value;
-    this.check();
-  }
-  onProizvodChange(proizvod: IProizvod) {
-    this.maxKolicina = this.selectedProizvod.stanje;
-  }
   onKupacChange(kupac: IKupac) {
-    console.log(this.selectedKupac);
+    this.uploadRacunForm.controls['kupacId'].setValue(this.selectedKupac.id);
+    this.check();
   }
+  
   findTotal() {
     this.total = 0;
     this.totalPopust = 0;
@@ -133,7 +114,27 @@ export class PointOfSaleComponent implements OnInit {
     this.totalBezPopusta = this.total + this.totalPopust;
     this.uploadRacunForm.controls['ukupnaCijena'].setValue(this.total);
   }
-  //PROVJERA JE LI IMA STAVKE RACUNA I KUPCA
+
+  removeProizvod(product: any) {
+    for (let i = 0; i < this.proizvodi.length; i++) {
+      if (this.proizvodi[i].id == product.proizvodId) {
+        this.proizvodi[i].stanje = this.proizvodi[i].stanje + product.kolicina;
+      }
+    }
+    for (let i = 0; i < this.stavke.length; i++) {
+      if (
+        this.stavke[i].proizvodId == product.proizvodId &&
+        this.stavke[i].kolicina == product.kolicina &&
+        this.stavke[i].popust == product.popust
+      ) {
+        this.stavke.splice(i, 1);
+      }
+    }
+    this.dataSource = new MatTableDataSource(this.stavke);
+    this.findTotal();
+    this.check();
+  }
+
   check() {
     this.model = this.uploadRacunForm.value;
     if (this.model.stavkeRacuna.length != 0 && this.model.kupacId != null) {
@@ -144,13 +145,40 @@ export class PointOfSaleComponent implements OnInit {
     for (let i = 0; i < this.model.stavkeRacuna.length; i++) {
       delete this.model.stavkeRacuna[i].jedinicaMjere;
     }
+
     this.model = this.uploadRacunForm.value;
-    console.log(this.model);
     this.mainService.postRacun(this.model).subscribe(
-      (res) => {},
+      (res) => {
+        this.toastr.success('Račun je uspješno dodan');
+        setTimeout(() => {
+          window.location.replace('http://localhost:4200/bills');
+        }, 1000);
+      },
       (err) => {
         console.log(err);
       }
     );
+  }
+  @HostListener('window:keydown.+') otvori() {
+    this.dialog.closeAll();
+    let dialogRef = this.dialog.open(AddStavkaComponent, {
+      width: '600px',
+      height: '350px',
+      data: { proizvodi: this.proizvodi },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      const productListForm = this.uploadRacunForm.get('stavkeRacuna');
+      productListForm.setValue([...productListForm.value, res]);
+      for (let i = 0; i < this.proizvodi.length; i++) {
+        if (this.proizvodi[i].id == res.proizvodId) {
+          this.proizvodi[i].stanje = this.proizvodi[i].stanje - res.kolicina;
+        }
+      }
+      this.stavke = this.uploadRacunForm.get('stavkeRacuna').value;
+      this.toastr.success('Proizvod je dodan na račun');
+      this.dataSource = new MatTableDataSource(this.stavke);
+      this.findTotal();
+      this.check();
+    });
   }
 }

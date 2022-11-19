@@ -9,3 +9,6 @@
 table{
   width:100%
 }
+.mat-column-ukupno, .mat-column-broj, .mat-column-datum , .mat-column-ime , .mat-column-akcije {
+  text-align: center;
+}

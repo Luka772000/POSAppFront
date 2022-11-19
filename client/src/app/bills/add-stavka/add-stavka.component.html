@@ -1,6 +1,7 @@
 <div class="body">
   Proizvod:
   <ng-select
+    
     #proizvod
     class="custom"
     [items]="product.proizvodi"
@@ -9,6 +10,12 @@
     (click)="changeSelectedPr($event); changeToKolicina($event)"
     (keydown.enter)="changeSelectedPr($event); changeToKolicina($event)"
   >
+    <ng-template ng-option-tmp let-item="item" let-index="index" class="opcije">
+      <b>{{ item.naziv }} - </b>
+      <b>Stanje: </b>
+      <b>{{ item.stanje }} {{ item.jedinicaMjere.naziv | lowercase }}a, </b>
+      <b>Cijena: {{ item.cijena }} </b>
+    </ng-template>
   </ng-select>
 
   <form [formGroup]="addStavkaForm">

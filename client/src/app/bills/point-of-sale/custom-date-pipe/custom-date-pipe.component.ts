@@ -13,7 +13,7 @@ export enum DateFormat {
 })
 export class CustomDatePipe extends DatePipe implements PipeTransform {
   private readonly datePatterns = new Map<string, string>([
-    ['short',    'd/M/y, h:mm:ss a'],
+    ['short',    'd/M/y, h:mm:ss '],
     ['medium',   'MMM d, y, h:mm:ss a'],
     ['long',     'EEEE, LLLL d, y, h:mm:ss a'],
     ['dateOnly', 'MMM d, y'],

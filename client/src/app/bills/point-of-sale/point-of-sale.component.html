@@ -8,32 +8,83 @@
         <mat-card class="dashboard-card3">
           <mat-card-content class="dashboard-card-content">
             <div class="bill">
-              <table>
-                <tbody>
-                  <tr>
-                    <th class="redic" style="width: 16.5%">Proizvod</th>
-                    <th class="redic" style="width: 16.5%">Količina</th>
-                    <th class="redic" style="width: 16.5%">Cijena</th>
-                    <th class="redic" style="width: 16.5%">Popust</th>
-                    <th class="redic" style="width: 16.5%">Iznos popusta</th>
-                    <th class="redic" style="width: 16.5%">Vrijednost</th>
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Progress Column -->
+                  <ng-container matColumnDef="Naziv">
+                    <th mat-header-cell *matHeaderCellDef>Naziv proizvoda</th>
+                    <td mat-cell *matCellDef="let dataSource">
+                      {{ dataSource.naziv }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Cijena">
+                    <th mat-header-cell *matHeaderCellDef>Cijena</th>
+                    <td mat-cell *matCellDef="let dataSource">
+                      {{ dataSource.cijena | number: ".2-2" }} KM
+                    </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="Količina">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Količina proizvoda
+                    </th>
+                    <td mat-cell *matCellDef="let dataSource">
+                      {{ dataSource.kolicina }} {{ dataSource.jedinicaMjere }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Popust">
+                    <th mat-header-cell *matHeaderCellDef>Popust</th>
+                    <td mat-cell *matCellDef="let dataSource">
+                      {{ dataSource.popust }} %
+                    </td>
+
+                    <ng-container matColumnDef="Iznos popusta">
+                      <th mat-header-cell *matHeaderCellDef>Iznos popusta</th>
+                      <td mat-cell *matCellDef="let dataSource">
+                        {{ dataSource.iznosPopusta | number: ".2-2" }} KM
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Vrijednost">
+                      <th mat-header-cell *matHeaderCellDef>Vrijednost</th>
+                      <td mat-cell *matCellDef="let dataSource">
+                        {{ dataSource.vrijednost | number: ".2-2" }} KM
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Akcija">
+                      <th mat-header-cell *matHeaderCellDef>Obriši proizvod</th>
+                      <td mat-cell *matCellDef="let product">
+                        <button
+                          class="btn"
+                          mat-icon-button
+                          mat-raised-button
+                          matTooltip="Ukloni proizvod"
+                          [matTooltipPosition]="'above'"
+                        >
+                          <mat-icon
+                            color="warn"
+                            (click)="removeProizvod(product)"
+                            >close</mat-icon
+                          >
+                        </button>
+                      </td>
+                    </ng-container>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let product; columns: displayedColumns"
+                  ></tr>
+
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Račun je prazan</td>
                   </tr>
-                  <tr *ngFor="let dodanproizvod of stavke">
-                    <td class="redic">
-                      {{ dodanproizvod.naziv }}
-                    </td>
-                    <td class="redic">
-                      {{ dodanproizvod.kolicina }} {{dodanproizvod.jedinicaMjere | lowercase}}
-                    </td>
-                    <td class="redic">
-                      {{ dodanproizvod.cijena | number : '.2-2'}} KM
-                    </td>
-                    <td class="redic">{{ dodanproizvod.popust }} %</td>
-                    <td class="redic">{{ dodanproizvod.iznosPopusta | number : '.2-2'}} KM</td>
-                    <td class="redic">{{ dodanproizvod.vrijednost | number : '.2-2'}} KM</td>
-                  </tr>
-                </tbody>
-              </table>
+                </table>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -42,7 +93,32 @@
         <mat-card class="dashboard-card2">
           <mat-card-content class="dashboard-card-content">
             <div>
-              <select
+              <ng-select
+                appendTo="body"
+                appearance="outline"
+                [ngModelOptions]="{ standalone: true }"
+                #kupac
+                placeholder="Ime kupca: "
+                class="custom"
+                [items]="kupci"
+                bindLabel="naziv"
+                [(ngModel)]="selectedKupac"
+                (click)="onKupacChange($event)"
+                (keydown.enter)="onKupacChange($event)"
+              >
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-index="index"
+                  class="opcije"
+                >
+                  <b>{{ item.naziv }} - </b>
+                  <b>Prebivalište: </b>
+                  <b>{{ item.mjesto }}, </b>
+                  <b>{{ item.adresa }} </b>
+                </ng-template>
+              </ng-select>
+              <!-- <select
                 [ngModelOptions]="{ standalone: true }"
                 [(ngModel)]="selectedKupac"
                 (change)="onKupacChange($event)"
@@ -50,14 +126,15 @@
                 <option *ngFor="let kupac of kupci" [ngValue]="kupac">
                   {{ kupac.naziv }}
                 </option>
-              </select>
-              <button
+              </select> -->
+              <!-- <button
                 mat-button
                 [disabled]="!selectedKupac"
                 (click)="addKupac()"
               >
                 DODAJ KUPCA
-              </button>
+              </button> -->
+              <!-- <div *ngIf="selectedKupac?.naziv==''">Ime kupca: {{ selectedKupac?.naziv }}</div> -->
             </div>
           </mat-card-content>
         </mat-card> </mat-grid-tile
@@ -74,15 +151,15 @@
             </mat-form-field>
             <div class="bill1">
               CIJENA PRIJE POPUSTA: <br />
-              {{ totalBezPopusta }} KM
+              {{ totalBezPopusta | number: ".2-2" }} KM
             </div>
             <div class="bill1">
               POPUST: <br />
-              {{ totalPopust }} KM
+              {{ totalPopust | number: ".2-2" }} KM
             </div>
-            <div class="bill1">
+            <div class="bill2">
               UKUPNA CIJENA: <br />
-              {{ total }} KM
+              {{ total | number: ".2-2" }} KM
             </div>
             <div class="unesi">
               <button
