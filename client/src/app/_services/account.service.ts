@@ -5,8 +5,6 @@ import { map, ReplaySubject } from "rxjs";
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-
-
 @Injectable({
     providedIn: 'root'
 })
@@ -16,7 +14,6 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1)
   currentUser$ = this.currentUserSource.asObservable();
   user: User[];
-
   
   constructor(private httpClient: HttpClient, private router: Router){}
 

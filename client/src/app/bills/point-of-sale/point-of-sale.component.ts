@@ -1,6 +1,6 @@
 import { IZaglavljeRacuna } from './../../_models/product';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { IKupac } from 'src/app/_models/kupac';
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './point-of-sale.component.html',
   styleUrls: ['./point-of-sale.component.css'],
 })
-export class PointOfSaleComponent implements OnInit {
+export class PointOfSaleComponent implements OnInit{
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {

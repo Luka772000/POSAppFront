@@ -1,63 +1,79 @@
-import { IKupac} from '../../_models/kupac';
-import { Component, OnInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { IKupac, Kupac} from '../../_models/kupac';
+import { Component, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/_services/main.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteKupacDialogComponent } from './delete-kupac-dialog/delete-kupac-dialog.component';
 import { EditKupacComponent } from './edit-kupac/edit-kupac.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
 @Component({
   selector: 'app-create-kupac',
   templateUrl: './create-kupac.component.html',
   styleUrls: ['./create-kupac.component.css']
 })
-export class CreateKupacComponent implements OnInit {
+
+export class CreateKupacComponent implements OnInit,AfterViewInit {
+
+  displayedColumns: string[] = ['naziv', 'mjesto', 'adresa', 'opcije', 'opcije2'];
+  dataSource: MatTableDataSource<Kupac>;
   model: any = {};
   bsModalRef: BsModalRef;
-  constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   uploadForm: FormGroup;
-  searchText = '';
   kupci : IKupac[];
+
+  constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { this.dataSource = new MatTableDataSource(this.kupci); }
+  
   ngOnInit(): void {
     this.loadKupci();
-    this.initializeForm();
   }
-  initializeForm() {
-    this.uploadForm = new FormGroup({
-      naziv: new FormControl(this.model.naziv, [Validators.maxLength(50),Validators.required]),
-      mjesto: new FormControl(this.model.mjesto, [Validators.maxLength(50),Validators.required]),
-      adresa: new FormControl(this.model.adresa,[Validators.maxLength(50),Validators.required]),
-    });
-  }
+
   openDialog(id: number) {
     this.dialog.open(DeleteKupacDialogComponent, {
       width: '400px',
-      height: '220px',
+      height: '200px',
       data: { id },
     });
   }
+
   loadKupci() {
     this.mainService.getKupci().subscribe((Kupac) => {
       this.kupci = Kupac;
+      this.dataSource.data = this.kupci;
     });
   }
-  postKupac() {
-    this.model = this.uploadForm.value;
-    console.log(this.model);
-    this.mainService.postKupac(this.model).subscribe(
-      (res) => {
-        this.loadKupci();
-        this.uploadForm.reset();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+
   openUpdateDialog(kupac: IKupac) {
     this.dialog.open(EditKupacComponent, {
       width: '600px',
-      height: '410px',
+      height: '500px',
       data: { kupac },
   })}
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  
+  @HostListener('window:keydown.+') otvori() {
+    this.dialog.closeAll();
+    let dialogRef = this.dialog.open(EditKupacComponent, {
+      width: '600px',
+      height: '500px',
+      data: { kupac: this.kupci },
+    });
+  }
 }

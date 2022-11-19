@@ -74,14 +74,16 @@ export class EditProductDialogComponent implements OnInit {
     console.log(this.selectedMjera);
   }
  
-
   postProduct() {
     this.model = this.uploadForm.value;
     console.log(this.model);
     this.mainService.postProduct(this.model).subscribe(
       (res) => {
-        
+        this.toastr.success('Proizvod je uspješno dodan');
         this.uploadForm.reset();
+        window.setTimeout(function () {
+          location.reload();
+        }, 1000);
       },
       (err) => {
         console.log(err);

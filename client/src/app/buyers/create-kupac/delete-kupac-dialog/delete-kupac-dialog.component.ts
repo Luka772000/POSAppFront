@@ -1,6 +1,7 @@
 import { MainService } from './../../../_services/main.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-kupac-dialog',
@@ -9,19 +10,26 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DeleteKupacDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public kupac: any,private mainService:MainService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public kupac: any,private mainService:MainService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
+
   deleteKupac(id: number) {
     this.mainService.deleteKupac(id).subscribe(
       (result) => {
-        window.location.reload();
+        this.toastr.success('Kupac je uspješno obrisan');
+        window.setTimeout(function () {
+          location.reload();
+        }, 1000);
       },
       (err) => {
         console.log(err);
         if (err.status === 200) {
-          window.location.reload();
+          this.toastr.success('Kupac je uspješno obrisan');
+          window.setTimeout(function () {
+            location.reload();
+          }, 1000);
         }
       }
     );

@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IKupac } from 'src/app/_models/kupac';
 
 @Component({
   selector: 'app-edit-kupac',
@@ -10,10 +11,24 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./edit-kupac.component.css']
 })
 export class EditKupacComponent implements OnInit {
-  upKup: any={};
+  upKup: any = {};
   constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public kupac) { }
   updateForm: FormGroup;
-  ngOnInit(): void {this.initializeForm();}
+  uploadForm: FormGroup;
+  model: any = {};
+  kupci : IKupac[];
+  ngOnInit(): void {
+    this.initializeForm();
+    this.initializeForm2();
+  }
+
+  initializeForm2() {
+    this.uploadForm = new FormGroup({
+      naziv: new FormControl(this.model.naziv, [Validators.maxLength(50),Validators.required]),
+      mjesto: new FormControl(this.model.mjesto, [Validators.maxLength(50),Validators.required]),
+      adresa: new FormControl(this.model.adresa,[Validators.maxLength(50),Validators.required]),
+    });
+  }
   initializeForm() {
     this.updateForm = new FormGroup({
       id : new FormControl(this.upKup.id),
@@ -34,7 +49,24 @@ export class EditKupacComponent implements OnInit {
         this.toastr.success('Kupac je uspješno izmijenjen');
         window.setTimeout(function () {
           location.reload();
-        }, 2000);
+        }, 1000);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  
+  postKupac() {
+    this.model = this.uploadForm.value;
+    console.log(this.model);
+    this.mainService.postKupac(this.model).subscribe(
+      (res) => {
+        this.toastr.success('Kupac je uspješno dodan');
+        this.uploadForm.reset();
+        window.setTimeout(function () {
+          location.reload();
+        }, 1000);
       },
       (err) => {
         console.log(err);

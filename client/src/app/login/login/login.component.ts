@@ -10,6 +10,7 @@ import { AccountService } from 'src/app/_services/account.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   @Output() cancelLogin = new EventEmitter();
   model: any = {}
@@ -28,7 +29,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl(this.model.password, Validators.required),
     })
   }
-
 
   login() {
     console.log(this.model)

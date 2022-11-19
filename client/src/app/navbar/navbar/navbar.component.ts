@@ -12,6 +12,7 @@ import { UserManagementServiceService } from 'src/app/_services/user-management-
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent implements OnInit {
   user: GetUser;
 

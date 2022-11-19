@@ -17,22 +17,19 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit, AfterViewInit {
+  
   displayedColumns: string[] = ['sifra', 'naziv', 'jedinicaMjere', 'cijena', 'stanje', 'opcije', 'opcije2'];
   dataSource: MatTableDataSource<Proizvod>;
-  
   bsModalRef: BsModalRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   products : IProizvod[];
-  
   searchText = '';
   units: IjedinicaMjere[];
   
   constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { 
     this.dataSource = new MatTableDataSource(this.products);
    }
-  
-  
   
   ngOnInit(): void {
     this.loadProducts();
