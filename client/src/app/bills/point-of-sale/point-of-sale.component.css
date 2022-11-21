@@ -168,3 +168,8 @@ select::-ms-expand {
 .select:hover::after {
   color: #23b499;
 }
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked { background-color: #cacaca; }
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+   background-color: #ffffff; 
+   border-top:rgb(0, 0, 0) 0.5px solid;
+}

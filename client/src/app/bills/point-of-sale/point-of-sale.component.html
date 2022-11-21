@@ -103,8 +103,7 @@
                 [items]="kupci"
                 bindLabel="naziv"
                 [(ngModel)]="selectedKupac"
-                (click)="onKupacChange($event)"
-                (keydown.enter)="onKupacChange($event)"
+                (change)="onKupacChange($event)"
               >
                 <ng-template
                   ng-option-tmp

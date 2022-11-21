@@ -11,10 +11,8 @@
     (keydown.enter)="changeSelectedPr($event); changeToKolicina($event)"
   >
     <ng-template ng-option-tmp let-item="item" let-index="index" class="opcije">
-      <b>{{ item.naziv }} - </b>
-      <b>Stanje: </b>
-      <b>{{ item.stanje }} {{ item.jedinicaMjere.naziv | lowercase }}a, </b>
-      <b>Cijena: {{ item.cijena }} </b>
+      <p>{{ item.naziv }} - Stanje:{{ item.stanje }} {{ item.jedinicaMjere.naziv | lowercase }}a, Cijena: {{ item.cijena }}  </p>
+
     </ng-template>
   </ng-select>
 

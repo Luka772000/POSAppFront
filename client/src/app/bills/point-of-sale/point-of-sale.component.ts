@@ -163,7 +163,7 @@ export class PointOfSaleComponent implements OnInit{
     this.dialog.closeAll();
     let dialogRef = this.dialog.open(AddStavkaComponent, {
       width: '600px',
-      height: '350px',
+      height: '370px',
       data: { proizvodi: this.proizvodi },
     });
     dialogRef.afterClosed().subscribe((res) => {
