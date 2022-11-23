@@ -9,6 +9,10 @@
 table{
   width:100%
 }
-.mat-column-ukupno, .mat-column-broj, .mat-column-datum , .mat-column-ime , .mat-column-akcije {
+.mat-column-ukupno, .mat-sort-column-broj, .mat-sort-column-datum , .mat-column-ime , .mat-column-akcije {
   text-align: center;
+}
+.paginator{
+  display: flex;
+  justify-content: center;
 }

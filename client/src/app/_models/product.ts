@@ -4,6 +4,7 @@ import { DecimalPipe } from "@angular/common";
 import { NumberValueAccessor } from "@angular/forms";
 import { jedinicaMjere } from "./jedinicaMjere";
 import { IKupac, Kupac } from "./kupac";
+import { GetUser } from "./user";
 
 export class Proizvod {
     id: number = 0;
@@ -58,6 +59,8 @@ export class ZaglavljeRacuna {
     napomena: string = "";
     stavkeRacuna: StavkaRacuna[]
     ukupno: number = 0;
+    userId: number = 0;
+    user: GetUser 
 }
 export class StavkaRacuna{
     id: number = 0;

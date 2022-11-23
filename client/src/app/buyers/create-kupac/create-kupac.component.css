@@ -21,3 +21,9 @@ table {
   display: flex;
   justify-content: center;
 }
+.opcije{
+    text-align: center;
+}
+.opcijeH{
+  text-align: center;
+}

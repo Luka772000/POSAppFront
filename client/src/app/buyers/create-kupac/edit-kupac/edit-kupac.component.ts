@@ -2,7 +2,7 @@ import { MainService } from 'src/app/_services/main.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IKupac } from 'src/app/_models/kupac';
 
 @Component({
@@ -12,7 +12,7 @@ import { IKupac } from 'src/app/_models/kupac';
 })
 export class EditKupacComponent implements OnInit {
   upKup: any = {};
-  constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public kupac) { }
+  constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public kupac,private dialogRef: MatDialogRef<EditKupacComponent>) { }
   updateForm: FormGroup;
   uploadForm: FormGroup;
   model: any = {};
@@ -47,9 +47,8 @@ export class EditKupacComponent implements OnInit {
     this.mainService.updateKupac().subscribe(
       (res) => {
         this.toastr.success('Kupac je uspješno izmijenjen');
-        window.setTimeout(function () {
-          location.reload();
-        }, 1000);
+        this.dialogRef.close(this.uploadForm.value);
+        this.uploadForm.reset();
       },
       (err) => {
         console.log(err);
@@ -59,14 +58,11 @@ export class EditKupacComponent implements OnInit {
   
   postKupac() {
     this.model = this.uploadForm.value;
-    console.log(this.model);
     this.mainService.postKupac(this.model).subscribe(
       (res) => {
         this.toastr.success('Kupac je uspješno dodan');
+        this.dialogRef.close(this.uploadForm.value);
         this.uploadForm.reset();
-        window.setTimeout(function () {
-          location.reload();
-        }, 1000);
       },
       (err) => {
         console.log(err);

@@ -1,6 +1,12 @@
 import { MatPaginator } from '@angular/material/paginator';
-import { IKupac, Kupac} from '../../_models/kupac';
-import { Component, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
+import { IKupac, Kupac } from '../../_models/kupac';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/_services/main.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,31 +19,38 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-create-kupac',
   templateUrl: './create-kupac.component.html',
-  styleUrls: ['./create-kupac.component.css']
+  styleUrls: ['./create-kupac.component.css'],
 })
-
-export class CreateKupacComponent implements OnInit,AfterViewInit {
-
-  displayedColumns: string[] = ['naziv', 'mjesto', 'adresa', 'opcije', 'opcije2'];
+export class CreateKupacComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['naziv', 'mjesto', 'adresa', 'opcije'];
   dataSource: MatTableDataSource<Kupac>;
   model: any = {};
   bsModalRef: BsModalRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   uploadForm: FormGroup;
-  kupci : IKupac[];
+  kupci: IKupac[];
 
-  constructor(private mainService: MainService,private dialog: MatDialog,private modalService: BsModalService,) { this.dataSource = new MatTableDataSource(this.kupci); }
-  
+  constructor(
+    private mainService: MainService,
+    private dialog: MatDialog,
+    private modalService: BsModalService
+  ) {
+    this.dataSource = new MatTableDataSource(this.kupci);
+  }
+
   ngOnInit(): void {
     this.loadKupci();
   }
 
   openDialog(id: number) {
-    this.dialog.open(DeleteKupacDialogComponent, {
+    let dialogRef = this.dialog.open(DeleteKupacDialogComponent, {
       width: '400px',
       height: '200px',
       data: { id },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.loadKupci();
     });
   }
 
@@ -54,11 +67,15 @@ export class CreateKupacComponent implements OnInit,AfterViewInit {
   }
 
   openUpdateDialog(kupac: IKupac) {
-    this.dialog.open(EditKupacComponent, {
+    let dialogRef = this.dialog.open(EditKupacComponent, {
       width: '600px',
       height: '500px',
       data: { kupac },
-  })}
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.loadKupci();
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -67,13 +84,16 @@ export class CreateKupacComponent implements OnInit,AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
+
   @HostListener('window:keydown.+') otvori() {
     this.dialog.closeAll();
     let dialogRef = this.dialog.open(EditKupacComponent, {
       width: '600px',
       height: '500px',
       data: { kupac: this.kupci },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      this.loadKupci();
     });
   }
 }

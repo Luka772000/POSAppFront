@@ -17,3 +17,6 @@ table {
   display: flex;
   justify-content: center;
 }
+.mat-column-sifra-header, .mat-column-naziv-header, .mat-sort-column-datum , .mat-column-ime , .mat-column-stanje-header {
+  text-align: center;
+}

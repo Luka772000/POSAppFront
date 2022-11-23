@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="uploadRacunForm">
   <div class="grid-container">
-    <mat-grid-list cols="4" rowHeight="6vh">
+    <mat-grid-list cols="4" rowHeight="6.4vh">
       <mat-grid-tile [colspan]="3" [rowspan]="14">
         <mat-card class="dashboard-card3">
           <mat-card-content class="dashboard-card-content">
@@ -30,7 +30,9 @@
                       Količina proizvoda
                     </th>
                     <td mat-cell *matCellDef="let dataSource">
-                      {{ dataSource.kolicina }} {{ dataSource.jedinicaMjere }}
+                      {{ dataSource.kolicina }}
+                      {{ dataSource.jedinicaMjere | lowercase
+                      }}<span *ngIf="dataSource.kolicina > 1">a</span>
                     </td>
                   </ng-container>
 
@@ -62,12 +64,9 @@
                           mat-raised-button
                           matTooltip="Ukloni proizvod"
                           [matTooltipPosition]="'above'"
+                          (click)="removeProizvod(product)"
                         >
-                          <mat-icon
-                            color="warn"
-                            (click)="removeProizvod(product)"
-                            >close</mat-icon
-                          >
+                          <mat-icon color="warn">close</mat-icon>
                         </button>
                       </td>
                     </ng-container>
@@ -117,23 +116,6 @@
                   <b>{{ item.adresa }} </b>
                 </ng-template>
               </ng-select>
-              <!-- <select
-                [ngModelOptions]="{ standalone: true }"
-                [(ngModel)]="selectedKupac"
-                (change)="onKupacChange($event)"
-              >
-                <option *ngFor="let kupac of kupci" [ngValue]="kupac">
-                  {{ kupac.naziv }}
-                </option>
-              </select> -->
-              <!-- <button
-                mat-button
-                [disabled]="!selectedKupac"
-                (click)="addKupac()"
-              >
-                DODAJ KUPCA
-              </button> -->
-              <!-- <div *ngIf="selectedKupac?.naziv==''">Ime kupca: {{ selectedKupac?.naziv }}</div> -->
             </div>
           </mat-card-content>
         </mat-card> </mat-grid-tile

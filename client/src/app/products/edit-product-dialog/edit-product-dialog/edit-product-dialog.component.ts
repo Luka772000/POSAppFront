@@ -1,7 +1,7 @@
 import { IProizvod, Proizvod } from './../../../_models/product';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MainService } from 'src/app/_services/main.service';
 import { IjedinicaMjere } from 'src/app/_models/jedinicaMjere';
@@ -19,7 +19,7 @@ export class EditProductDialogComponent implements OnInit {
   updateForm: FormGroup;
   selectedMjera: IjedinicaMjere;
   uploadForm: FormGroup;
-  constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product) { }
+  constructor(private mainService:MainService,private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public product,private dialogRef: MatDialogRef<EditProductDialogComponent>) { }
   
   ngOnInit(): void {
     this.initializeForm();
@@ -62,7 +62,8 @@ export class EditProductDialogComponent implements OnInit {
     this.mainService.updateProduct().subscribe(
       (res) => {
         this.toastr.success('Proizvod je uspješno izmijenjen');
-        
+        this.dialogRef.close(this.uploadForm.value);
+        this.uploadForm.reset();
       },
       (err) => {
         console.log(err);
@@ -70,20 +71,14 @@ export class EditProductDialogComponent implements OnInit {
       }
     );
   }
-  onMjeraChange(kupac: IjedinicaMjere) {
-    console.log(this.selectedMjera);
-  }
  
   postProduct() {
     this.model = this.uploadForm.value;
-    console.log(this.model);
     this.mainService.postProduct(this.model).subscribe(
       (res) => {
         this.toastr.success('Proizvod je uspješno dodan');
+        this.dialogRef.close(this.uploadForm.value);
         this.uploadForm.reset();
-        window.setTimeout(function () {
-          location.reload();
-        }, 1000);
       },
       (err) => {
         console.log(err);

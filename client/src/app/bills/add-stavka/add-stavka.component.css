@@ -66,7 +66,7 @@ button {
    background-color: #ffffff; 
    border-top:rgb(0, 0, 0) 0.5px solid;
 }
-::ng-deep .ng-dropdown-panel .ng-input{
-    top:10px;
-    left:10px
+::ng-deep .ng-input .input .ng-value{
+    height:100%;
+    width:100%;
 }

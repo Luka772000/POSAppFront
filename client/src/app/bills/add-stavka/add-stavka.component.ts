@@ -29,7 +29,6 @@ export class AddStavkaComponent implements OnInit {
   }
   changeSelectedPr($event) {
     this.selected = $event.value;
-    console.log(this.selectedProizvod);
     this.maxKolicina = this.selectedProizvod.stanje;
   }
   changeToKolicina($event) {

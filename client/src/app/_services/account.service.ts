@@ -42,15 +42,15 @@ export class AccountService {
 
   getId(user:User){
     if(user) {
-      const id = this.getDecodedToken(user.token).nameid; // get the id from the token  and return it
+      const id = this.getDecodedToken(user.token).nameid;
       return id;
     }
   }
 
   getUsername(user: User){
     if (user){
-    const id = this.getDecodedToken(user.token).uniquename;  
-    return id;
+    const username = this.getDecodedToken(user.token).uniquename;  
+    return username;
     }
   }
 

@@ -6,7 +6,7 @@
       <div class="col-md-12">
           <div class="card">
               <div class="d-flex flex-row p-2">
-                  <div class="d-flex flex-column"> <span class="font-weight-bold">Broj računa </span> <small></small> {{racun.racun.broj}} | <span class="datum">Datum: {{racun.racun.datum | customDate}}</span></div>
+                  <div class="d-flex flex-column"> <span class="font-weight-bold">Broj računa </span> <small></small> {{racun.racun.broj}}     <span class="datum">Datum: {{racun.racun.datum | customDate}}</span></div>
                   
               </div>
               
@@ -20,7 +20,7 @@
                           </tr>
                           <tr class="content">
                               <td class="font-weight-bold">Ime: {{racun.racun.kupac.naziv}}<br>Adresa: {{racun.racun.kupac.adresa}} <br>Mjesto: {{racun.racun.kupac.mjesto}}</td>
-                              <td class="font-weight-bold radnik"  *ngIf="accountService.currentUser$ | async as user">{{ user.username | titlecase }}</td>
+                              <td class="font-weight-bold radnik" >{{ racun.racun.user.username | titlecase }}</td>
                           </tr>
                       </tbody>
                   </table>
@@ -30,20 +30,20 @@
                   <table class="table table-borderless">
                       <tbody>
                           <tr class="add">
-                              <td>Šifra proizvoda</td>
-                              <td>Ime</td>
-                              <td>Cijena</td>
+                              <td class="text-center">Šifra proizvoda</td>
+                              <td class="text-center">Ime</td>
+                              <td class="text-center">Cijena</td>
                               <td class="text-center">Količina</td>
                               <td class="text-center">Popust</td>
                               <td class="text-center">Total</td>
                           </tr>
                           <tr class="content" *ngFor="let stavka of racun.racun.stavkeRacuna">
-                            <td>{{stavka.proizvod.sifra}}</td>
+                            <td class="text-center">{{stavka.proizvod.sifra}}</td>
                             <td>{{stavka.proizvod.naziv}}</td>
-                            <td>{{stavka.cijena}} KM</td>
-                            <td class="text-center">{{stavka.kolicina}} {{stavka.proizvod.jedinicaMjere.naziv}}</td>
-                            <td class="text-center">{{stavka.popust}} %</td>
-                            <td class="text-center">{{stavka.vrijednost}} KM</td>
+                            <td>{{stavka.cijena | number: ".2-2"}} KM</td>
+                            <td class="text-center">{{stavka.kolicina}} {{stavka.proizvod.jedinicaMjere.naziv | lowercase}}<span *ngIf="stavka.kolicina>1">a</span></td>
+                            <td class="text-center">{{stavka.popust | number: ".2-2"}} %</td>
+                            <td class="text-center">{{stavka.vrijednost | number: ".2-2"}} KM</td>
                           </tr>
                           <tr class="add">
                             <td></td><td></td><td></td><td></td><td></td>
@@ -52,7 +52,7 @@
                           </tr>
                           <tr>
                             <td></td><td></td><td></td><td></td><td></td>
-                            <td>{{totalBezPopusta}} KM</td>
+                            <td>{{totalBezPopusta | number: ".2-2"}} KM</td>
                           </tr>
                           <tr class="add">
                             <td></td><td></td><td></td><td></td><td></td>
@@ -61,7 +61,7 @@
                           </tr>
                           <tr>
                             <td></td><td></td><td></td><td></td><td></td>
-                            <td>{{totalPopust}} KM</td>
+                            <td>{{totalPopust | number: ".2-2"}} KM</td>
                           </tr>
                           <tr class="add">
                             <td></td><td></td><td></td><td></td><td></td>
@@ -70,7 +70,7 @@
                           </tr>
                           <tr>
                             <td></td><td></td><td></td><td></td><td></td>
-                            <td>{{racun.racun.ukupnaCijena}} KM</td>
+                            <td>{{racun.racun.ukupnaCijena | number: ".2-2"}} KM</td>
                           </tr>
                       </tbody>
                   </table>

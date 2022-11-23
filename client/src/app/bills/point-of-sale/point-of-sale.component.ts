@@ -1,3 +1,4 @@
+import { AccountService } from 'src/app/_services/account.service';
 import { IZaglavljeRacuna, ZaglavljeRacuna } from './../../_models/product';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
@@ -12,13 +13,14 @@ import { AddStavkaComponent } from '../add-stavka/add-stavka.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrintBillDialogComponent } from '../bill-list/print-bill-dialog/print-bill-dialog.component';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-point-of-sale',
   templateUrl: './point-of-sale.component.html',
   styleUrls: ['./point-of-sale.component.css'],
 })
-export class PointOfSaleComponent implements OnInit{
+export class PointOfSaleComponent implements OnInit {
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
@@ -41,7 +43,8 @@ export class PointOfSaleComponent implements OnInit{
     private mainService: MainService,
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private accService: AccountService
   ) {
     this.dataSource = new MatTableDataSource(this.stavke);
   }
@@ -95,6 +98,7 @@ export class PointOfSaleComponent implements OnInit{
       kupacId: new FormControl(this.model.kupacId, Validators.required),
       stavkeRacuna: new FormControl([]),
       ukupnaCijena: new FormControl(this.model.ukupnaCijena),
+      userId: new FormControl(this.model.userId),
     });
     this.uploadRacunForm.controls['datum'].setValue(new Date());
     this.uploadRacunForm.controls['napomena'].setValue('Nema napomene');
@@ -103,7 +107,7 @@ export class PointOfSaleComponent implements OnInit{
     this.uploadRacunForm.controls['kupacId'].setValue(this.selectedKupac.id);
     this.check();
   }
-  
+
   findTotal() {
     this.total = 0;
     this.totalPopust = 0;
@@ -146,6 +150,9 @@ export class PointOfSaleComponent implements OnInit{
       delete this.model.stavkeRacuna[i].jedinicaMjere;
     }
 
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    const id = this.accService.getId(user);
+    this.uploadRacunForm.controls['userId'].setValue(id);
     this.model = this.uploadRacunForm.value;
     this.mainService.postRacun(this.model).subscribe(
       (res) => {

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { MainService } from 'src/app/_services/main.service';
 
 @Component({
@@ -11,19 +12,22 @@ export class DeleteBillDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public racun: any,
     private mainService: MainService,
-    private dialog: MatDialog
+    private dialogRef: MatDialogRef<DeleteBillDialogComponent>,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
   deleteRacun(id: number) {
     this.mainService.deleteRacun(id).subscribe(
       (result) => {
-        window.location.reload();
+        this.toastr.success('Račun je uspješno obrisan');
+        this.dialogRef.close();
       },
       (err) => {
         console.log(err);
         if (err.status === 200) {
-          window.location.reload();
+          this.toastr.success('Račun je uspješno obrisan');
+          this.dialogRef.close();
         }
       }
     );
